@@ -75,6 +75,63 @@
             height: auto;
         }
 
+        /* ======= Language Switcher ======= */
+        .lang-switcher-wrap {
+            background: var(--white);
+            border-bottom: 2px solid #eef0f5;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .lang-switcher-label {
+            font-size: 0.78rem;
+            color: #888;
+            margin-left: 6px;
+            margin-right: 6px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .lang-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1.5px solid #dde1ea;
+            background: #f8f9fb;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .lang-btn .flag {
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--primary-gold);
+            color: var(--primary-navy);
+            background: #fffbf3;
+        }
+
+        .lang-btn.active {
+            background: var(--primary-navy);
+            color: var(--white);
+            border-color: var(--primary-navy);
+            box-shadow: 0 2px 8px rgba(26, 39, 73, 0.25);
+        }
+
+        /* ======= Content ======= */
         .content {
             padding: 30px 40px;
         }
@@ -85,6 +142,24 @@
             padding-right: 15px;
             margin-bottom: 20px;
             font-size: 1.5rem;
+        }
+
+        /* LTR languages fix */
+        html[dir="ltr"] .section-title {
+            border-right: none;
+            border-left: 4px solid var(--primary-gold);
+            padding-right: 0;
+            padding-left: 15px;
+        }
+
+        html[dir="ltr"] .condition-card {
+            border-right: 1px solid #e1e8ed;
+            border-left: 4px solid var(--primary-gold);
+        }
+
+        html[dir="ltr"] .competition-info-banner {
+            border-right: 1px solid rgba(26, 39, 73, 0.2);
+            border-left: 4px solid var(--primary-navy);
         }
 
         .conditions-grid {
@@ -132,7 +207,7 @@
             line-height: 1.4;
         }
 
-        /* ======= قسم الجوائز الجديد ======= */
+        /* ======= Prizes ======= */
         .prizes-section {
             margin-bottom: 30px;
         }
@@ -197,7 +272,7 @@
             display: block;
         }
 
-        /* ======= رسالة الموعد ======= */
+        /* ======= Info Banner ======= */
         .competition-info-banner {
             background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%);
             border: 1px solid rgba(26, 39, 73, 0.2);
@@ -214,7 +289,7 @@
             color: var(--primary-navy);
         }
 
-        /* ======= باقي العناصر ======= */
+        /* ======= Upload ======= */
         .upload-zone-wrapper {
             position: relative;
             min-height: 160px;
@@ -416,183 +491,179 @@
             .conditions-grid { grid-template-columns: repeat(2, 1fr); }
             .prizes-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
             .prize-card { padding: 14px 8px; }
-            .prize-medal { font-size: 1.5rem; }
             .content { padding: 20px; }
             .header h1 { font-size: 1.8rem; }
+            .lang-btn { padding: 5px 10px; font-size: 0.75rem; }
         }
-
-    
     </style>
 </head>
 <body>
-
 
 <div class="container">
     <header class="header">
         <div class="logo-container">
             <img src="logo.png" alt="شعار اتحاد ثقافة الشرق الأوسط">
         </div>
-        <h1><span class="word-musabaka">مسابقة</span> الشرق في صورة</h1>
+        <h1 id="headerTitle"><span class="word-musabaka" id="headerWord1">مسابقة</span> <span id="headerWord2">الشرق في صورة</span></h1>
     </header>
 
+    <!-- Language Switcher -->
+    <div class="lang-switcher-wrap">
+        <span class="lang-switcher-label" id="langLabel">اللغة:</span>
+        <button class="lang-btn active" onclick="setLang('ar')" id="btn-ar">
+            العربية
+        </button>
+        <button class="lang-btn" onclick="setLang('fa')" id="btn-fa">
+            فارسی
+        </button>
+        <button class="lang-btn" onclick="setLang('tr')" id="btn-tr">
+            Türkçe
+        </button>
+        <button class="lang-btn" onclick="setLang('en')" id="btn-en">
+            English
+        </button>
+    </div>
+
     <div class="content">
-        <h2 class="section-title">شروط المشاركة</h2>
+        <h2 class="section-title" data-key="conditionsTitle">شروط المشاركة</h2>
 
         <div class="conditions-grid">
-
             <div class="condition-card">
-                <img src="1.png" alt="الهوية" class="card-icon">
+                <img src="1.png" alt="" class="card-icon">
                 <div class="card-text">
-                    <span class="card-title">الارتباط بالهوية</span>
-                    <span class="card-desc">تراث أو تفصيلة أو طبيعة من الشرق الأوسط</span>
+                    <span class="card-title" data-key="c1t">الارتباط بالهوية</span>
+                    <span class="card-desc" data-key="c1d">تراث أو تفصيلة أو طبيعة من الشرق الأوسط</span>
                 </div>
             </div>
-
             <div class="condition-card">
-                <img src="2.png" alt="الأصالة" class="card-icon">
+                <img src="2.png" alt="" class="card-icon">
                 <div class="card-text">
-                    <span class="card-title">الأصالة</span>
-                    <span class="card-desc">تصوير شخصي، بلا إنترنت أو ذكاء اصطناعي</span>
+                    <span class="card-title" data-key="c2t">الأصالة</span>
+                    <span class="card-desc" data-key="c2d">تصوير شخصي، بلا إنترنت أو ذكاء اصطناعي</span>
                 </div>
             </div>
-
             <div class="condition-card">
-                <img src="3.png" alt="الرسالة الثقافية" class="card-icon">
+                <img src="3.png" alt="" class="card-icon">
                 <div class="card-text">
-                    <span class="card-title">الرسالة الثقافية</span>
-                    <span class="card-desc">إبراز الجوانب الجمالية والتاريخية للشرق</span>
+                    <span class="card-title" data-key="c3t">الرسالة الثقافية</span>
+                    <span class="card-desc" data-key="c3d">إبراز الجوانب الجمالية والتاريخية للشرق</span>
                 </div>
             </div>
-
             <div class="condition-card">
-                <img src="4.png" alt="التعديلات" class="card-icon">
+                <img src="4.png" alt="" class="card-icon">
                 <div class="card-text">
-                    <span class="card-title">التعديلات المسموحة</span>
-                    <span class="card-desc">إضاءة وتباين فقط، يُمنع التلاعب الجذري</span>
+                    <span class="card-title" data-key="c4t">التعديلات المسموحة</span>
+                    <span class="card-desc" data-key="c4d">إضاءة وتباين فقط، يُمنع التلاعب الجذري</span>
                 </div>
             </div>
-
             <div class="condition-card">
-                <img src="5.png" alt="حقوق الملكية" class="card-icon">
+                <img src="5.png" alt="" class="card-icon">
                 <div class="card-text">
-                    <span class="card-title">حقوق الملكية</span>
-                    <span class="card-desc">المشارك يملكها ويمنح الاتحاد حق العرض</span>
+                    <span class="card-title" data-key="c5t">حقوق الملكية</span>
+                    <span class="card-desc" data-key="c5d">المشارك يملكها ويمنح الاتحاد حق العرض</span>
                 </div>
             </div>
-
             <div class="condition-card">
-                <img src="6.png" alt="صورة واحدة" class="card-icon">
+                <img src="6.png" alt="" class="card-icon">
                 <div class="card-text">
-                    <span class="card-title">صورة واحدة فقط</span>
-                    <span class="card-desc">لا يُقبل أكثر من صورة واحدة لكل مشارك</span>
+                    <span class="card-title" data-key="c6t">صورة واحدة فقط</span>
+                    <span class="card-desc" data-key="c6d">لا يُقبل أكثر من صورة واحدة لكل مشارك</span>
                 </div>
             </div>
-
             <div class="condition-card">
-                <img src="7.png" alt="الجودة" class="card-icon">
+                <img src="7.png" alt="" class="card-icon">
                 <div class="card-text">
-                    <span class="card-title">جودة الصورة</span>
-                    <span class="card-desc">دقة لا تقل عن 12 ميغابكسل وصيغة JPG أو PNG</span>
+                    <span class="card-title" data-key="c7t">جودة الصورة</span>
+                    <span class="card-desc" data-key="c7d">دقة لا تقل عن 12 ميغابكسل وصيغة JPG أو PNG</span>
                 </div>
             </div>
-
             <div class="condition-card">
-                <img src="8.png" alt="علامة مائية" class="card-icon">
+                <img src="8.png" alt="" class="card-icon">
                 <div class="card-text">
-                    <span class="card-title">بلا علامات مائية</span>
-                    <span class="card-desc">يُمنع وضع أي شعار أو نص على الصورة المشاركة</span>
+                    <span class="card-title" data-key="c8t">بلا علامات مائية</span>
+                    <span class="card-desc" data-key="c8d">يُمنع وضع أي شعار أو نص على الصورة المشاركة</span>
                 </div>
             </div>
-
             <div class="condition-card">
-                <img src="9.png" alt="الحصرية" class="card-icon">
+                <img src="9.png" alt="" class="card-icon">
                 <div class="card-text">
-                    <span class="card-title">حصرية المشاركة</span>
-                    <span class="card-desc">لا يجوز استخدام صور نالت جوائز سابقا أو تم تداولها تجاريًا</span>
+                    <span class="card-title" data-key="c9t">حصرية المشاركة</span>
+                    <span class="card-desc" data-key="c9d">لا يجوز استخدام صور نالت جوائز سابقا أو تم تداولها تجاريًا</span>
                 </div>
             </div>
-
             <div class="condition-card">
-                <img src="10.png" alt="المحتوى" class="card-icon">
+                <img src="10.png" alt="" class="card-icon">
                 <div class="card-text">
-                    <span class="card-title">ملاءمة المحتوى</span>
-                    <span class="card-desc">يُمنع كل محتوى مسيء أو مخالف للآداب العامة</span>
+                    <span class="card-title" data-key="c10t">ملاءمة المحتوى</span>
+                    <span class="card-desc" data-key="c10d">يُمنع كل محتوى مسيء أو مخالف للآداب العامة</span>
                 </div>
             </div>
-
             <div class="condition-card">
-                <img src="11.png" alt="الموعد النهائي" class="card-icon">
+                <img src="11.png" alt="" class="card-icon">
                 <div class="card-text">
-                    <span class="card-title">الالتزام بالموعد</span>
-                    <span class="card-desc">لا تُقبل المشاركات بعد انتهاء مدة الاستقبال الرسمية</span>
+                    <span class="card-title" data-key="c11t">الالتزام بالموعد</span>
+                    <span class="card-desc" data-key="c11d">لا تُقبل المشاركات بعد انتهاء مدة الاستقبال الرسمية</span>
                 </div>
             </div>
-
             <div class="condition-card">
-                <img src="12.png" alt="قرار اللجنة" class="card-icon">
+                <img src="12.png" alt="" class="card-icon">
                 <div class="card-text">
-                    <span class="card-title">قرار الحكام</span>
-                    <span class="card-desc">يتم إعلان الفائزيين عبر صفحتنا على الإنسغرام</span>
+                    <span class="card-title" data-key="c12t">قرار الحكام</span>
+                    <span class="card-desc" data-key="c12d">يتم إعلان الفائزيين عبر صفحتنا على الإنسغرام</span>
                 </div>
             </div>
-
         </div>
 
-        <!-- قسم الجوائز -->
+        <!-- Prizes -->
         <div class="prizes-section">
-            <h2 class="section-title">الجوائز والمكافآت</h2>
+            <h2 class="section-title" data-key="prizesTitle">الجوائز والمكافآت</h2>
             <div class="prizes-grid">
-                <!-- المركز الأول - يمين -->
                 <div class="prize-card first">
-                    <img src="first.png" alt="المركز الأول" class="prize-medal-img">
-                    <span class="prize-rank">المركز الأول</span>
-                    <span class="prize-value">1000 TL</span>
+                    <img src="first.png" alt="" class="prize-medal-img">
+                    <span class="prize-rank" data-key="rank1">المركز الأول</span>
+                    <span class="prize-value" data-key="rankVal">لاحقاً</span>
                 </div>
-                <!-- المركز الثاني - وسط -->
                 <div class="prize-card second">
-                    <img src="second.png" alt="المركز الثاني" class="prize-medal-img">
-                    <span class="prize-rank">المركز الثاني</span>
-                    <span class="prize-value">800 TL</span>
+                    <img src="second.png" alt="" class="prize-medal-img">
+                    <span class="prize-rank" data-key="rank2">المركز الثاني</span>
+                    <span class="prize-value" data-key="rankVal2">لاحقاً</span>
                 </div>
-                <!-- المركز الثالث - يسار -->
                 <div class="prize-card third">
-                    <img src="third.png" alt="المركز الثالث" class="prize-medal-img">
-                    <span class="prize-rank">المركز الثالث</span>
-                    <span class="prize-value">600 TL</span>
+                    <img src="third.png" alt="" class="prize-medal-img">
+                    <span class="prize-rank" data-key="rank3">المركز الثالث</span>
+                    <span class="prize-value" data-key="rankVal3">لاحقاً</span>
                 </div>
             </div>
         </div>
 
-        <h2 class="section-title">استمارة التسجيل</h2>
-        <form action="https://formsubmit.co/meysarasalem@gmail.com" method="POST" enctype="multipart/form-data">
+        <h2 class="section-title" data-key="formTitle">استمارة التسجيل</h2>
 
+        <form action="https://formsubmit.co/meysarasalem@gmail.com" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="_subject" value="مشاركة جديدة: الشرق في صورة">
 
             <div class="form-group">
-                <label for="fullName">الاسم الثلاثي</label>
+                <label for="fullName" data-key="labelName">الاسم الثلاثي</label>
                 <input type="text" id="fullName" name="fullName" required>
             </div>
 
             <div class="form-group">
-                <label for="phone">رقم التواصل (واتساب)</label>
+                <label for="phone" data-key="labelPhone">رقم التواصل (واتساب)</label>
                 <input type="tel" id="phone" name="phone" required>
             </div>
 
             <div class="form-group">
-                <label for="instagram">حساب الإنستغرام</label>
+                <label for="instagram" data-key="labelInsta">حساب الإنستغرام</label>
                 <input type="text" id="instagram" name="instagram" required>
             </div>
 
             <div class="form-group">
-                <label>إرفاق الصورة المشاركة</label>
+                <label data-key="labelPhoto">إرفاق الصورة المشاركة</label>
                 <div class="upload-zone-wrapper" id="uploadZoneWrapper">
-
                     <div class="upload-wrapper" id="dropZone">
-                        <img src="camera0.png" alt="رفع صورة" class="upload-icon">
-                        <p>اضغط هنا أو اسحب الصورة لرفعها</p>
+                        <img src="camera0.png" alt="" class="upload-icon">
+                        <p data-key="uploadText">اضغط هنا أو اسحب الصورة لرفعها</p>
                         <input type="file" id="photo" name="photo" accept="image/*" required onchange="handleImageSelect(event)">
                     </div>
-
                     <div class="upload-success" id="uploadSuccess">
                         <div class="checkmark-wrap">
                             <svg viewBox="0 0 52 52" width="36" height="36">
@@ -601,69 +672,258 @@
                             </svg>
                         </div>
                         <div class="success-text">
-                            <span class="success-label">تم رفع الصورة بنجاح!</span>
+                            <span class="success-label" data-key="uploadSuccess">تم رفع الصورة بنجاح!</span>
                             <span class="file-name" id="fileName"></span>
                         </div>
-                        <button type="button" class="change-photo-btn" onclick="resetUpload()">تغيير الصورة</button>
+                        <button type="button" class="change-photo-btn" onclick="resetUpload()" data-key="changePhoto">تغيير الصورة</button>
                     </div>
-
                 </div>
             </div>
 
-            <!-- بانر معلومات المسابقة فوق الموافقة -->
-            <div class="competition-info-banner">
-                تبدأ هذه المسابقة بإذن الله في تاريخ <strong>05/05</strong> وتنتهي بتاريخ <strong>10/05</strong>، سيتم فيها جمع كل الصور المشاركة وعرضها على الحكام ومن ثم سيتم اختيار أفضل <strong>3 صور</strong>، ليعقب ذلك التواصل مع أصحاب الصور الفائزة وتسليم الجوائز.
+            <div class="competition-info-banner" id="infoBanner">
+                <span data-key="infoBanner">تبدأ هذه المسابقة بإذن الله في تاريخ <strong>05/05</strong> وتنتهي بتاريخ <strong>10/05</strong>، سيتم فيها جمع كل الصور المشاركة وعرضها على الحكام ومن ثم سيتم اختيار أفضل <strong>3 صور</strong>، ليعقب ذلك التواصل مع أصحاب الصور الفائزة وتسليم الجوائز.</span>
             </div>
 
             <div class="agreement-section">
                 <input type="checkbox" id="agree" name="agreement" required>
-                <label for="agree" class="agreement-label">
+                <label for="agree" class="agreement-label" data-key="agreement">
                     أوافق على كافة الشروط المذكورة أعلاه، وأتعهد بصحة المعلومات المقدمة وملكية الصورة، وبأنني لم أستخدم أي وسائل تزييف أو نقاء فني أو تقني في إنتاج هذا العمل، وأن الصورة لم تُشارك في أي مسابقة أخرى.
                 </label>
             </div>
 
-            <button type="submit" class="submit-btn">إرسال طلب المشاركة</button>
+            <button type="submit" class="submit-btn" data-key="submitBtn">إرسال طلب المشاركة</button>
         </form>
     </div>
 </div>
 
-<script>function handleImageSelect(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        const dropZone     = document.getElementById('dropZone');
-        const successBox   = document.getElementById('uploadSuccess');
-        const wrapper      = document.getElementById('uploadZoneWrapper');
-        const fileNameSpan = document.getElementById('fileName');
-
-        fileNameSpan.textContent = file.name;
-        wrapper.style.height = dropZone.offsetHeight + 'px';
-        wrapper.style.position = 'relative';
-
-        successBox.style.display = 'flex';
-        dropZone.classList.add('collapsing');
-
-        setTimeout(() => {
-            dropZone.style.display = 'none';
-            successBox.classList.add('show');
-            wrapper.style.height = 'auto';
-        }, 480);
+<script>
+const translations = {
+    ar: {
+        dir: "rtl",
+        lang: "ar",
+        langLabel: "اللغة:",
+        headerWord1: "مسابقة",
+        headerWord2: "الشرق في صورة",
+        conditionsTitle: "شروط المشاركة",
+        prizesTitle: "الجوائز والمكافآت",
+        rank1: "المركز الأول",
+        rank2: "المركز الثاني",
+        rank3: "المركز الثالث",
+        rankVal: "لاحقاً",
+        rankVal2: "لاحقاً",
+        rankVal3: "لاحقاً",
+        formTitle: "استمارة التسجيل",
+        labelName: "الاسم الثلاثي",
+        labelPhone: "رقم التواصل (واتساب)",
+        labelInsta: "حساب الإنستغرام",
+        labelPhoto: "إرفاق الصورة المشاركة",
+        uploadText: "اضغط هنا أو اسحب الصورة لرفعها",
+        uploadSuccess: "تم رفع الصورة بنجاح!",
+        changePhoto: "تغيير الصورة",
+        infoBanner: 'تبدأ هذه المسابقة بإذن الله في تاريخ <strong>05/05</strong> وتنتهي بتاريخ <strong>10/05</strong>، سيتم فيها جمع كل الصور المشاركة وعرضها على الحكام ومن ثم سيتم اختيار أفضل <strong>3 صور</strong>، ليعقب ذلك التواصل مع أصحاب الصور الفائزة وتسليم الجوائز.',
+        agreement: "أوافق على كافة الشروط المذكورة أعلاه، وأتعهد بصحة المعلومات المقدمة وملكية الصورة، وبأنني لم أستخدم أي وسائل تزييف أو نقاء فني أو تقني في إنتاج هذا العمل، وأن الصورة لم تُشارك في أي مسابقة أخرى.",
+        submitBtn: "إرسال طلب المشاركة",
+        c1t: "الارتباط بالهوية", c1d: "تراث أو تفصيلة أو طبيعة من الشرق الأوسط",
+        c2t: "الأصالة", c2d: "تصوير شخصي، بلا إنترنت أو ذكاء اصطناعي",
+        c3t: "الرسالة الثقافية", c3d: "إبراز الجوانب الجمالية والتاريخية للشرق",
+        c4t: "التعديلات المسموحة", c4d: "إضاءة وتباين فقط، يُمنع التلاعب الجذري",
+        c5t: "حقوق الملكية", c5d: "المشارك يملكها ويمنح الاتحاد حق العرض",
+        c6t: "صورة واحدة فقط", c6d: "لا يُقبل أكثر من صورة واحدة لكل مشارك",
+        c7t: "جودة الصورة", c7d: "دقة لا تقل عن 12 ميغابكسل وصيغة JPG أو PNG",
+        c8t: "بلا علامات مائية", c8d: "يُمنع وضع أي شعار أو نص على الصورة المشاركة",
+        c9t: "حصرية المشاركة", c9d: "لا يجوز استخدام صور نالت جوائز سابقا أو تم تداولها تجاريًا",
+        c10t: "ملاءمة المحتوى", c10d: "يُمنع كل محتوى مسيء أو مخالف للآداب العامة",
+        c11t: "الالتزام بالموعد", c11d: "لا تُقبل المشاركات بعد انتهاء مدة الاستقبال الرسمية",
+        c12t: "قرار الحكام", c12d: "يتم إعلان الفائزيين عبر صفحتنا على الإنسغرام",
+    },
+    fa: {
+        dir: "rtl",
+        lang: "fa",
+        langLabel: "زبان:",
+        headerWord1: "مسابقه",
+        headerWord2: "شرق در تصویر",
+        conditionsTitle: "شرایط شرکت",
+        prizesTitle: "جوایز و پاداش‌ها",
+        rank1: "مقام اول",
+        rank2: "مقام دوم",
+        rank3: "مقام سوم",
+        rankVal: "به زودی",
+        rankVal2: "به زودی",
+        rankVal3: "به زودی",
+        formTitle: "فرم ثبت‌نام",
+        labelName: "نام و نام خانوادگی",
+        labelPhone: "شماره تماس (واتساپ)",
+        labelInsta: "حساب اینستاگرام",
+        labelPhoto: "پیوست کردن تصویر شرکتی",
+        uploadText: "اینجا کلیک کنید یا تصویر را بکشید",
+        uploadSuccess: "تصویر با موفقیت بارگذاری شد!",
+        changePhoto: "تغییر تصویر",
+        infoBanner: 'این مسابقه از تاریخ <strong>05/05</strong> آغاز می‌شود و تا <strong>10/05</strong> ادامه دارد. تمامی تصاویر جمع‌آوری شده و در اختیار داوران قرار می‌گیرند تا <strong>۳ تصویر</strong> برتر انتخاب شوند، سپس با صاحبان تصاویر برنده تماس گرفته و جوایز اهدا می‌شود.',
+        agreement: "با تمام شرایط ذکر شده موافقم و تعهد می‌دهم که اطلاعات ارائه شده و مالکیت تصویر صحیح است، و هیچ وسیله جعل یا پالایش فنی در تولید این اثر استفاده نشده، و تصویر در هیچ مسابقه دیگری شرکت نکرده است.",
+        submitBtn: "ارسال درخواست شرکت",
+        c1t: "ارتباط با هویت", c1d: "میراث، جزئیات یا طبیعتی از خاورمیانه",
+        c2t: "اصالت", c2d: "عکاسی شخصی، بدون اینترنت یا هوش مصنوعی",
+        c3t: "پیام فرهنگی", c3d: "برجسته کردن جنبه‌های زیبایی‌شناختی و تاریخی شرق",
+        c4t: "ویرایش‌های مجاز", c4d: "فقط نور و کنتراست، دستکاری اساسی ممنوع است",
+        c5t: "حقوق مالکیت", c5d: "شرکت‌کننده مالک است و حق نمایش را به اتحادیه اعطا می‌کند",
+        c6t: "فقط یک تصویر", c6d: "بیش از یک تصویر برای هر شرکت‌کننده پذیرفته نمی‌شود",
+        c7t: "کیفیت تصویر", c7d: "حداقل ۱۲ مگاپیکسل، فرمت JPG یا PNG",
+        c8t: "بدون واترمارک", c8d: "قرار دادن هرگونه لوگو یا نوشته روی تصویر ممنوع است",
+        c9t: "انحصاری بودن", c9d: "استفاده از تصاویری که قبلاً جایزه گرفته یا به صورت تجاری استفاده شده ممنوع است",
+        c10t: "مناسب بودن محتوا", c10d: "هرگونه محتوای توهین‌آمیز یا مخالف اخلاق عمومی ممنوع است",
+        c11t: "رعایت مهلت", c11d: "مشارکت‌ها پس از پایان مهلت رسمی پذیرفته نمی‌شوند",
+        c12t: "تصمیم داوران", c12d: "برندگان از طریق صفحه اینستاگرام ما اعلام می‌شوند",
+    },
+    tr: {
+        dir: "ltr",
+        lang: "tr",
+        langLabel: "Dil:",
+        headerWord1: "Yarışma",
+        headerWord2: "Doğu Bir Fotoğrafta",
+        conditionsTitle: "Katılım Koşulları",
+        prizesTitle: "Ödüller ve Mükâfatlar",
+        rank1: "Birinci",
+        rank2: "İkinci",
+        rank3: "Üçüncü",
+        rankVal: "Yakında",
+        rankVal2: "Yakında",
+        rankVal3: "Yakında",
+        formTitle: "Kayıt Formu",
+        labelName: "Ad Soyad",
+        labelPhone: "İletişim Numarası (WhatsApp)",
+        labelInsta: "Instagram Hesabı",
+        labelPhoto: "Katılım Fotoğrafını Ekle",
+        uploadText: "Buraya tıklayın veya fotoğrafı sürükleyin",
+        uploadSuccess: "Fotoğraf başarıyla yüklendi!",
+        changePhoto: "Fotoğrafı Değiştir",
+        infoBanner: 'Bu yarışma <strong>05/05</strong> tarihinde başlayıp <strong>10/05</strong> tarihinde sona erecektir. Tüm katılım fotoğrafları jüriye sunulacak ve en iyi <strong>3 fotoğraf</strong> seçilecektir. Ardından kazanan fotoğraf sahipleriyle iletişime geçilerek ödüller teslim edilecektir.',
+        agreement: "Yukarıda belirtilen tüm koşulları kabul ediyor, sunulan bilgilerin ve fotoğrafın sahipliğinin doğruluğunu, bu eseri oluştururken herhangi bir sahte veya teknik filtreleme aracı kullanmadığımı ve fotoğrafın başka hiçbir yarışmaya katılmadığını beyan ediyorum.",
+        submitBtn: "Katılım Başvurusunu Gönder",
+        c1t: "Kimlikle Bağlantı", c1d: "Orta Doğu'dan miras, detay veya doğa unsuru",
+        c2t: "Özgünlük", c2d: "Kişisel çekim, internet veya yapay zeka yok",
+        c3t: "Kültürel Mesaj", c3d: "Doğu'nun estetik ve tarihi yönlerini öne çıkarmak",
+        c4t: "İzin Verilen Düzenlemeler", c4d: "Yalnızca ışık ve kontrast; köklü müdahale yasaktır",
+        c5t: "Telif Hakları", c5d: "Katılımcı sahibi olup birliğe sergileme hakkı tanır",
+        c6t: "Yalnızca Bir Fotoğraf", c6d: "Her katılımcı için birden fazla fotoğraf kabul edilmez",
+        c7t: "Fotoğraf Kalitesi", c7d: "En az 12 megapiksel, JPG veya PNG formatı",
+        c8t: "Filigran Yok", c8d: "Katılım fotoğrafı üzerine logo veya metin koymak yasaktır",
+        c9t: "Münhasırlık", c9d: "Daha önce ödül almış veya ticari amaçla kullanılmış fotoğraflar yasaktır",
+        c10t: "İçerik Uygunluğu", c10d: "Hakaret içeren veya genel ahlaka aykırı her türlü içerik yasaktır",
+        c11t: "Son Tarihe Uyum", c11d: "Resmi kabul süresi bittikten sonra katılımlar kabul edilmez",
+        c12t: "Jüri Kararı", c12d: "Kazananlar Instagram sayfamız üzerinden duyurulacaktır",
+    },
+    en: {
+        dir: "ltr",
+        lang: "en",
+        langLabel: "Language:",
+        headerWord1: "Competition",
+        headerWord2: "The East in a Frame",
+        conditionsTitle: "Participation Conditions",
+        prizesTitle: "Prizes & Rewards",
+        rank1: "1st Place",
+        rank2: "2nd Place",
+        rank3: "3rd Place",
+        rankVal: "Coming soon",
+        rankVal2: "Coming soon",
+        rankVal3: "Coming soon",
+        formTitle: "Registration Form",
+        labelName: "Full Name",
+        labelPhone: "Contact Number (WhatsApp)",
+        labelInsta: "Instagram Account",
+        labelPhoto: "Attach Your Entry Photo",
+        uploadText: "Click here or drag and drop your photo",
+        uploadSuccess: "Photo uploaded successfully!",
+        changePhoto: "Change Photo",
+        infoBanner: 'This competition will begin on <strong>05/05</strong> and conclude on <strong>10/05</strong>. All submitted photos will be collected and presented to the judges, who will select the best <strong>3 photos</strong>. Winners will then be contacted and prizes will be awarded.',
+        agreement: "I agree to all the conditions stated above, and I confirm the accuracy of the provided information and my ownership of the photo. I declare that I have not used any artificial or digital manipulation in producing this work, and that the photo has not been entered in any other competition.",
+        submitBtn: "Submit Entry",
+        c1t: "Identity Connection", c1d: "Heritage, detail or nature from the Middle East",
+        c2t: "Authenticity", c2d: "Personal photography, no internet or AI tools",
+        c3t: "Cultural Message", c3d: "Highlighting the aesthetic and historical aspects of the East",
+        c4t: "Permitted Edits", c4d: "Lighting and contrast only; radical manipulation is prohibited",
+        c5t: "Ownership Rights", c5d: "Participant owns the photo and grants the union display rights",
+        c6t: "One Photo Only", c6d: "More than one photo per participant is not accepted",
+        c7t: "Photo Quality", c7d: "Minimum 12 megapixels, JPG or PNG format",
+        c8t: "No Watermarks", c8d: "Adding any logo or text on the entry photo is prohibited",
+        c9t: "Exclusivity", c9d: "Photos that previously won awards or were used commercially are not allowed",
+        c10t: "Content Appropriateness", c10d: "Any offensive or morally inappropriate content is prohibited",
+        c11t: "Deadline Compliance", c11d: "Entries are not accepted after the official submission period ends",
+        c12t: "Judges' Decision", c12d: "Winners will be announced through our Instagram page",
     }
+};
 
-    function resetUpload() {
-        const dropZone   = document.getElementById('dropZone');
-        const successBox = document.getElementById('uploadSuccess');
-        const fileInput  = document.getElementById('photo');
+function setLang(code) {
+    const t = translations[code];
+    const html = document.documentElement;
 
-        successBox.classList.remove('show');
+    html.setAttribute('lang', t.lang);
+    html.setAttribute('dir', t.dir);
 
-        setTimeout(() => {
-            successBox.style.display = 'none';
-            dropZone.style.display = 'block';
-            dropZone.classList.remove('collapsing');
-            fileInput.value = '';
-        }, 350);
-    }
+    // Active button
+    ['ar','fa','tr','en'].forEach(l => {
+        document.getElementById('btn-' + l).classList.toggle('active', l === code);
+    });
+
+    // Lang label
+    document.getElementById('langLabel').textContent = t.langLabel;
+
+    // Header
+    document.getElementById('headerWord1').textContent = t.headerWord1;
+    document.getElementById('headerWord2').textContent = t.headerWord2;
+
+    // All data-key elements (except infoBanner span which uses innerHTML)
+    document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (key === 'infoBanner') {
+            el.innerHTML = t[key];
+        } else if (t[key] !== undefined) {
+            el.textContent = t[key];
+        }
+    });
+
+    // Prizes grid direction for all langs
+    document.querySelector('.prizes-grid').style.direction = t.dir;
+}
+</script>
+
+<script>
+function handleImageSelect(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const dropZone     = document.getElementById('dropZone');
+    const successBox   = document.getElementById('uploadSuccess');
+    const wrapper      = document.getElementById('uploadZoneWrapper');
+    const fileNameSpan = document.getElementById('fileName');
+
+    fileNameSpan.textContent = file.name;
+    wrapper.style.height = dropZone.offsetHeight + 'px';
+    wrapper.style.position = 'relative';
+
+    successBox.style.display = 'flex';
+    dropZone.classList.add('collapsing');
+
+    setTimeout(() => {
+        dropZone.style.display = 'none';
+        successBox.classList.add('show');
+        wrapper.style.height = 'auto';
+    }, 480);
+}
+
+function resetUpload() {
+    const dropZone   = document.getElementById('dropZone');
+    const successBox = document.getElementById('uploadSuccess');
+    const fileInput  = document.getElementById('photo');
+
+    successBox.classList.remove('show');
+
+    setTimeout(() => {
+        successBox.style.display = 'none';
+        dropZone.style.display = 'block';
+        dropZone.classList.remove('collapsing');
+        fileInput.value = '';
+    }, 350);
+}
 </script>
 
 </body>
