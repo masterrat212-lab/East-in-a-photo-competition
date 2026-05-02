@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل فعالية - الشرق في صورة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #1a2749;
+            --primary-gold: #f5b95a;
+            --light-bg: #f4f7f6;
+            --text-dark: #333;
+            --white: #ffffff;
+            --error-red: #e74c3c;
+            --success-green: #27ae60;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(26, 39, 73, 0.1);
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            body { margin: 0; padding: 0; }
+            .container {
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+                min-height: 100vh;
+            }
+        }
+
+        .header {
+            background-color: var(--primary-navy);
+            color: var(--white);
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 5px solid var(--primary-gold);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            color: var(--primary-gold);
+            margin-bottom: 10px;
+        }
+
+        .logo-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .logo-container img {
+            max-width: 150px;
+            height: auto;
+        }
+
+        .content {
+            padding: 30px 40px;
+        }
+
+        .section-title {
+            color: var(--primary-navy);
+            border-right: 4px solid var(--primary-gold);
+            padding-right: 15px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .conditions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .condition-card {
+            background: #f9fbfd;
+            border: 1px solid #e1e8ed;
+            border-right: 4px solid var(--primary-gold);
+            border-radius: 8px;
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .condition-card .card-icon {
+            width: 36px;
+            height: 36px;
+            flex-shrink: 0;
+            object-fit: contain;
+        }
+
+        .condition-card .card-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .condition-card .card-title {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            line-height: 1.3;
+        }
+
+        .condition-card .card-desc {
+            font-size: 0.7rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* ======= قسم الجوائز الجديد ======= */
+        .prizes-section {
+            margin-bottom: 30px;
+        }
+
+        .prizes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            direction: rtl;
+        }
+
+        .prize-card {
+            border-radius: 12px;
+            padding: 20px 14px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prize-card.first {
+            background: linear-gradient(145deg, #fff8ec, #fff3d6);
+            border: 2px solid var(--primary-gold);
+            box-shadow: 0 4px 16px rgba(245, 185, 90, 0.25);
+        }
+
+        .prize-card.second {
+            background: linear-gradient(145deg, #f5f7fa, #eaecef);
+            border: 2px solid #bcc1cc;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .prize-card.third {
+            background: linear-gradient(145deg, #fff5f0, #fdeee8);
+            border: 2px solid #d4956a;
+            box-shadow: 0 4px 12px rgba(180, 100, 60, 0.12);
+        }
+
+        .prize-medal-img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 6px;
+        }
+
+        .prize-rank {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .prize-card.first .prize-rank { color: #b8860b; }
+        .prize-card.second .prize-rank { color: #6b7280; }
+        .prize-card.third .prize-rank { color: #9a5c38; }
+
+        .prize-value {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #888;
+            display: block;
+        }
+
+        /* ======= رسالة الموعد ======= */
+        .competition-info-banner {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%);
+            border: 1px solid rgba(26, 39, 73, 0.2);
+            border-right: 4px solid var(--primary-navy);
+            border-radius: 10px;
+            padding: 16px 18px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #333;
+            line-height: 1.85;
+        }
+
+        .competition-info-banner strong {
+            color: var(--primary-navy);
+        }
+
+        /* ======= باقي العناصر ======= */
+        .upload-zone-wrapper {
+            position: relative;
+            min-height: 160px;
+        }
+
+        .upload-wrapper {
+            border: 2px dashed #cbd5e0;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            background-color: #fafafa;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-wrapper:hover {
+            border-color: var(--primary-gold);
+            background-color: #fffefb;
+        }
+
+        .upload-wrapper input[type="file"] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-icon {
+            width: 48px;
+            height: 48px;
+            display: block;
+            margin: 0 auto 10px auto;
+            object-fit: contain;
+        }
+
+        .upload-wrapper.collapsing {
+            animation: collapseUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes collapseUp {
+            0%   { max-height: 300px; opacity: 1; padding: 30px; transform: scaleY(1); }
+            60%  { max-height: 300px; opacity: 0.2; }
+            100% { max-height: 0; opacity: 0; padding: 0; transform: scaleY(0); }
+        }
+
+        .upload-success {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            min-height: 80px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #f0fdf6 0%, #e8f8f1 100%);
+            border: 2px solid var(--success-green);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 6px;
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .upload-success.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .checkmark-wrap { width: 36px; height: 36px; }
+
+        .checkmark-circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 3;
+            stroke: var(--success-green);
+            fill: none;
+            animation: strokeCircle 0.5s cubic-bezier(0.65, 0, 0.45, 1) 0.1s forwards;
+        }
+
+        .checkmark-check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            stroke-width: 4;
+            stroke: var(--success-green);
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: strokeCheck 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.55s forwards;
+        }
+
+        @keyframes strokeCircle { 100% { stroke-dashoffset: 0; } }
+        @keyframes strokeCheck  { 100% { stroke-dashoffset: 0; } }
+
+        .success-text { text-align: center; }
+
+        .success-text .success-label {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--success-green);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .success-text .file-name {
+            font-size: 0.72rem;
+            color: #555;
+            display: block;
+            max-width: 220px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .change-photo-btn {
+            background: none;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            padding: 2px 10px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.68rem;
+            color: #777;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .change-photo-btn:hover {
+            border-color: var(--error-red);
+            color: var(--error-red);
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary-navy);
+        }
+
+        .form-group input:not([type="checkbox"]) {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-family: 'Cairo', sans-serif;
+            box-sizing: border-box;
+        }
+
+        .agreement-section {
+            background: #fff9f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 25px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            border: 1px solid rgba(245, 185, 90, 0.3);
+        }
+
+        .agreement-section input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary-navy);
+            margin-top: 4px;
+        }
+
+        .agreement-label {
+            font-size: 0.95rem;
+            cursor: pointer;
+            color: #444;
+            user-select: none;
+        }
+
+        .submit-btn {
+            background-color: var(--primary-navy);
+            color: var(--white);
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-family: 'Cairo', sans-serif;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-gold);
+            color: var(--primary-navy);
+        }
+
+        @media (max-width: 600px) {
+            .conditions-grid { grid-template-columns: repeat(2, 1fr); }
+            .prizes-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .prize-card { padding: 14px 8px; }
+            .prize-medal { font-size: 1.5rem; }
+            .content { padding: 20px; }
+            .header h1 { font-size: 1.8rem; }
+        }
+
+    
+    </style>
+</head>
+<body>
+
+
+<div class="container">
+    <header class="header">
+        <div class="logo-container">
+            <img src="logo.png" alt="شعار اتحاد ثقافة الشرق الأوسط">
+        </div>
+        <h1>الشرق في صورة</h1>
+    </header>
+
+    <div class="content">
+        <h2 class="section-title">شروط المشاركة</h2>
+
+        <div class="conditions-grid">
+
+            <div class="condition-card">
+                <img src="1.png" alt="الهوية" class="card-icon">
+                <div class="card-text">
+                    <span class="card-title">الارتباط بالهوية</span>
+                    <span class="card-desc">تراث أو تفصيلة أو طبيعة من الشرق الأوسط</span>
+                </div>
+            </div>
+
+            <div class="condition-card">
+                <img src="2.png" alt="الأصالة" class="card-icon">
+                <div class="card-text">
+                    <span class="card-title">الأصالة</span>
+                    <span class="card-desc">تصوير شخصي، بلا إنترنت أو ذكاء اصطناعي</span>
+                </div>
+            </div>
+
+            <div class="condition-card">
+                <img src="3.png" alt="الرسالة الثقافية" class="card-icon">
+                <div class="card-text">
+                    <span class="card-title">الرسالة الثقافية</span>
+                    <span class="card-desc">إبراز الجوانب الجمالية والتاريخية للشرق</span>
+                </div>
+            </div>
+
+            <div class="condition-card">
+                <img src="4.png" alt="التعديلات" class="card-icon">
+                <div class="card-text">
+                    <span class="card-title">التعديلات المسموحة</span>
+                    <span class="card-desc">إضاءة وتباين فقط، يُمنع التلاعب الجذري</span>
+                </div>
+            </div>
+
+            <div class="condition-card">
+                <img src="5.png" alt="حقوق الملكية" class="card-icon">
+                <div class="card-text">
+                    <span class="card-title">حقوق الملكية</span>
+                    <span class="card-desc">المشارك يملكها ويمنح الاتحاد حق العرض</span>
+                </div>
+            </div>
+
+            <div class="condition-card">
+                <img src="6.png" alt="صورة واحدة" class="card-icon">
+                <div class="card-text">
+                    <span class="card-title">صورة واحدة فقط</span>
+                    <span class="card-desc">لا يُقبل أكثر من صورة واحدة لكل مشارك</span>
+                </div>
+            </div>
+
+            <div class="condition-card">
+                <img src="7.png" alt="الجودة" class="card-icon">
+                <div class="card-text">
+                    <span class="card-title">جودة الصورة</span>
+                    <span class="card-desc">دقة لا تقل عن 12 ميغابكسل وصيغة JPG أو PNG</span>
+                </div>
+            </div>
+
+            <div class="condition-card">
+                <img src="8.png" alt="علامة مائية" class="card-icon">
+                <div class="card-text">
+                    <span class="card-title">بلا علامات مائية</span>
+                    <span class="card-desc">يُمنع وضع أي شعار أو نص على الصورة المشاركة</span>
+                </div>
+            </div>
+
+            <div class="condition-card">
+                <img src="9.png" alt="الحصرية" class="card-icon">
+                <div class="card-text">
+                    <span class="card-title">حصرية المشاركة</span>
+                    <span class="card-desc">لا يجوز استخدام صور نالت جوائز سابقا أو تم تداولها تجاريًا</span>
+                </div>
+            </div>
+
+            <div class="condition-card">
+                <img src="10.png" alt="المحتوى" class="card-icon">
+                <div class="card-text">
+                    <span class="card-title">ملاءمة المحتوى</span>
+                    <span class="card-desc">يُمنع كل محتوى مسيء أو مخالف للآداب العامة</span>
+                </div>
+            </div>
+
+            <div class="condition-card">
+                <img src="11.png" alt="الموعد النهائي" class="card-icon">
+                <div class="card-text">
+                    <span class="card-title">الالتزام بالموعد</span>
+                    <span class="card-desc">لا تُقبل المشاركات بعد انتهاء مدة الاستقبال الرسمية</span>
+                </div>
+            </div>
+
+            <div class="condition-card">
+                <img src="12.png" alt="قرار اللجنة" class="card-icon">
+                <div class="card-text">
+                    <span class="card-title">قرار الحكام</span>
+                    <span class="card-desc">يتم إعلان الفائزيين عبر صفحتنا على الإنسغرام</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- قسم الجوائز -->
+        <div class="prizes-section">
+            <h2 class="section-title">الجوائز والمكافآت</h2>
+            <div class="prizes-grid">
+                <!-- المركز الأول - يمين -->
+                <div class="prize-card first">
+                    <img src="first.png" alt="المركز الأول" class="prize-medal-img">
+                    <span class="prize-rank">المركز الأول</span>
+                    <span class="prize-value">لاحقاً</span>
+                </div>
+                <!-- المركز الثاني - وسط -->
+                <div class="prize-card second">
+                    <img src="second.png" alt="المركز الثاني" class="prize-medal-img">
+                    <span class="prize-rank">المركز الثاني</span>
+                    <span class="prize-value">لاحقاً</span>
+                </div>
+                <!-- المركز الثالث - يسار -->
+                <div class="prize-card third">
+                    <img src="third.png" alt="المركز الثالث" class="prize-medal-img">
+                    <span class="prize-rank">المركز الثالث</span>
+                    <span class="prize-value">لاحقاً</span>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">استمارة التسجيل</h2>
+        <form action="https://formsubmit.co/meysarasalem@gmail.com" method="POST" enctype="multipart/form-data">
+
+            <input type="hidden" name="_subject" value="مشاركة جديدة: الشرق في صورة">
+
+            <div class="form-group">
+                <label for="fullName">الاسم الثلاثي</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">رقم التواصل (واتساب)</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="instagram">حساب الإنستغرام</label>
+                <input type="text" id="instagram" name="instagram" required>
+            </div>
+
+            <div class="form-group">
+                <label>إرفاق الصورة المشاركة</label>
+                <div class="upload-zone-wrapper" id="uploadZoneWrapper">
+
+                    <div class="upload-wrapper" id="dropZone">
+                        <img src="camera0.png" alt="رفع صورة" class="upload-icon">
+                        <p>اضغط هنا أو اسحب الصورة لرفعها</p>
+                        <input type="file" id="photo" name="photo" accept="image/*" required onchange="handleImageSelect(event)">
+                    </div>
+
+                    <div class="upload-success" id="uploadSuccess">
+                        <div class="checkmark-wrap">
+                            <svg viewBox="0 0 52 52" width="36" height="36">
+                                <circle class="checkmark-circle" cx="26" cy="26" r="23"/>
+                                <polyline class="checkmark-check" points="14,26 22,34 38,18"/>
+                            </svg>
+                        </div>
+                        <div class="success-text">
+                            <span class="success-label">تم رفع الصورة بنجاح!</span>
+                            <span class="file-name" id="fileName"></span>
+                        </div>
+                        <button type="button" class="change-photo-btn" onclick="resetUpload()">تغيير الصورة</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- بانر معلومات المسابقة فوق الموافقة -->
+            <div class="competition-info-banner">
+                تبدأ هذه المسابقة بإذن الله في تاريخ <strong>05/05</strong> وتنتهي بتاريخ <strong>10/05</strong>، سيتم فيها جمع كل الصور المشاركة وعرضها على الحكام ومن ثم سيتم اختيار أفضل <strong>3 صور</strong>، ليعقب ذلك التواصل مع أصحاب الصور الفائزة وتسليم الجوائز.
+            </div>
+
+            <div class="agreement-section">
+                <input type="checkbox" id="agree" name="agreement" required>
+                <label for="agree" class="agreement-label">
+                    أوافق على كافة الشروط المذكورة أعلاه، وأتعهد بصحة المعلومات المقدمة وملكية الصورة، وبأنني لم أستخدم أي وسائل تزييف أو نقاء فني أو تقني في إنتاج هذا العمل، وأن الصورة لم تُشارك في أي مسابقة أخرى.
+                </label>
+            </div>
+
+            <button type="submit" class="submit-btn">إرسال طلب المشاركة</button>
+        </form>
+    </div>
+</div>
+
+<script>function handleImageSelect(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const dropZone     = document.getElementById('dropZone');
+        const successBox   = document.getElementById('uploadSuccess');
+        const wrapper      = document.getElementById('uploadZoneWrapper');
+        const fileNameSpan = document.getElementById('fileName');
+
+        fileNameSpan.textContent = file.name;
+        wrapper.style.height = dropZone.offsetHeight + 'px';
+        wrapper.style.position = 'relative';
+
+        successBox.style.display = 'flex';
+        dropZone.classList.add('collapsing');
+
+        setTimeout(() => {
+            dropZone.style.display = 'none';
+            successBox.classList.add('show');
+            wrapper.style.height = 'auto';
+        }, 480);
+    }
+
+    function resetUpload() {
+        const dropZone   = document.getElementById('dropZone');
+        const successBox = document.getElementById('uploadSuccess');
+        const fileInput  = document.getElementById('photo');
+
+        successBox.classList.remove('show');
+
+        setTimeout(() => {
+            successBox.style.display = 'none';
+            dropZone.style.display = 'block';
+            dropZone.classList.remove('collapsing');
+            fileInput.value = '';
+        }, 350);
+    }
+</script>
+
+</body>
+</html>
