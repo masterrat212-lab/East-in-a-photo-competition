@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تسجيل فعالية - الشرق في صورة</title>
     <link rel="icon" type="image/png" href="logo1.png">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-navy: #1a2749;
@@ -25,6 +25,43 @@
             padding: 0;
             line-height: 1.6;
         }
+
+        /* ======= Sorani Kurdish Font Override ======= */
+        html.lang-ckb body,
+        html.lang-ckb .section-title,
+        html.lang-ckb .condition-card .card-title,
+        html.lang-ckb .condition-card .card-desc,
+        html.lang-ckb .prize-rank,
+        html.lang-ckb .prize-value,
+        html.lang-ckb .competition-info-banner,
+        html.lang-ckb .agreement-label,
+        html.lang-ckb .submit-btn,
+        html.lang-ckb .form-group label,
+        html.lang-ckb .form-group input,
+        html.lang-ckb .upload-wrapper p,
+        html.lang-ckb .success-text .success-label,
+        html.lang-ckb .success-text .file-name,
+        html.lang-ckb .change-photo-btn,
+        html.lang-ckb .lang-switcher-label,
+        html.lang-ckb .lang-btn,
+        html.lang-ckb #headerWord1,
+        html.lang-ckb #headerWord2 {
+            font-family: 'Noto Naskh Arabic', serif;
+        }
+
+        /* Sorani size boost — Noto Naskh renders smaller than Cairo at equal sizes */
+        html.lang-ckb body { font-size: 1.04rem; }
+        html.lang-ckb .section-title { font-size: 1.58rem; }
+        html.lang-ckb .condition-card .card-title { font-size: 0.83rem; }
+        html.lang-ckb .condition-card .card-desc { font-size: 0.75rem; }
+        html.lang-ckb .prize-rank { font-size: 0.81rem; }
+        html.lang-ckb .prize-value { font-size: 0.87rem; }
+        html.lang-ckb .competition-info-banner { font-size: 0.95rem; }
+        html.lang-ckb .agreement-label { font-size: 1rem; }
+        html.lang-ckb .submit-btn { font-size: 1.25rem; }
+        html.lang-ckb .form-group label { font-size: 0.95rem; }
+        html.lang-ckb .lang-btn { font-size: 0.85rem; }
+        html.lang-ckb .success-text .success-label { font-size: 0.87rem; }
 
         .container {
             max-width: 800px;
@@ -419,6 +456,10 @@
             transition: all 0.2s ease;
         }
 
+        html.lang-ckb .change-photo-btn {
+            font-family: 'Noto Naskh Arabic', serif;
+        }
+
         .change-photo-btn:hover {
             border-color: var(--error-red);
             color: var(--error-red);
@@ -440,6 +481,10 @@
             border-radius: 6px;
             font-family: 'Cairo', sans-serif;
             box-sizing: border-box;
+        }
+
+        html.lang-ckb .form-group input:not([type="checkbox"]) {
+            font-family: 'Noto Naskh Arabic', serif;
         }
 
         .agreement-section {
@@ -480,6 +525,10 @@
             cursor: pointer;
             width: 100%;
             transition: 0.3s;
+        }
+
+        html.lang-ckb .submit-btn {
+            font-family: 'Noto Naskh Arabic', serif;
         }
 
         .submit-btn:hover {
@@ -856,7 +905,6 @@ const translations = {
         c11t: "Deadline Compliance", c11d: "Entries are not accepted after the official submission period ends",
         c12t: "Judges' Decision", c12d: "Winners will be announced through our Instagram page",
     },
-    // ===== Kurdish Kurmanji (Latin script, LTR) =====
     ku: {
         dir: "ltr",
         lang: "ku",
@@ -895,7 +943,6 @@ const translations = {
         c11t: "Girtina Dawiyê", c11d: "Piştî bitemanbûna qonaxa fermî ya qebûlkirinê beşdarî nayê qebûlkirin",
         c12t: "Biryara Dadgeran", c12d: "Desteser dê bi rêya rûpela me ya Instagram werin ragihandin",
     },
-    // ===== Kurdish Sorani (Arabic script, RTL) =====
     ckb: {
         dir: "rtl",
         lang: "ckb",
@@ -942,6 +989,12 @@ function setLang(code) {
 
     html.setAttribute('lang', t.lang);
     html.setAttribute('dir', t.dir);
+
+    // Remove all lang classes then add current one
+    ['ar','fa','tr','en','ku','ckb'].forEach(l => {
+        html.classList.remove('lang-' + l);
+    });
+    html.classList.add('lang-' + code);
 
     // Active button
     ['ar','fa','tr','en','ku','ckb'].forEach(l => {
