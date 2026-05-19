@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مسابقة الشرق في صورة</title>
+    <title>تسجيل فعالية - الشرق في صورة</title>
     <link rel="icon" type="image/png" href="logo1.png">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-navy: #1a2749;
@@ -25,43 +25,6 @@
             padding: 0;
             line-height: 1.6;
         }
-
-        /* ======= Sorani Kurdish Font Override ======= */
-        html.lang-ckb body,
-        html.lang-ckb .section-title,
-        html.lang-ckb .condition-card .card-title,
-        html.lang-ckb .condition-card .card-desc,
-        html.lang-ckb .prize-rank,
-        html.lang-ckb .prize-value,
-        html.lang-ckb .competition-info-banner,
-        html.lang-ckb .agreement-label,
-        html.lang-ckb .submit-btn,
-        html.lang-ckb .form-group label,
-        html.lang-ckb .form-group input,
-        html.lang-ckb .upload-wrapper p,
-        html.lang-ckb .success-text .success-label,
-        html.lang-ckb .success-text .file-name,
-        html.lang-ckb .change-photo-btn,
-        html.lang-ckb .lang-switcher-label,
-        html.lang-ckb .lang-btn,
-        html.lang-ckb #headerWord1,
-        html.lang-ckb #headerWord2 {
-            font-family: 'Noto Naskh Arabic', serif;
-        }
-
-        /* Sorani size boost — Noto Naskh renders smaller than Cairo at equal sizes */
-        html.lang-ckb body { font-size: 1.04rem; }
-        html.lang-ckb .section-title { font-size: 1.58rem; }
-        html.lang-ckb .condition-card .card-title { font-size: 0.83rem; }
-        html.lang-ckb .condition-card .card-desc { font-size: 0.75rem; }
-        html.lang-ckb .prize-rank { font-size: 0.81rem; }
-        html.lang-ckb .prize-value { font-size: 0.87rem; }
-        html.lang-ckb .competition-info-banner { font-size: 0.95rem; }
-        html.lang-ckb .agreement-label { font-size: 1rem; }
-        html.lang-ckb .submit-btn { font-size: 1.25rem; }
-        html.lang-ckb .form-group label { font-size: 0.95rem; }
-        html.lang-ckb .lang-btn { font-size: 0.85rem; }
-        html.lang-ckb .success-text .success-label { font-size: 0.87rem; }
 
         .container {
             max-width: 800px;
@@ -148,11 +111,6 @@
             cursor: pointer;
             transition: all 0.2s ease;
             outline: none;
-        }
-
-        .lang-btn .flag {
-            font-size: 1rem;
-            line-height: 1;
         }
 
         .lang-btn:hover {
@@ -456,10 +414,6 @@
             transition: all 0.2s ease;
         }
 
-        html.lang-ckb .change-photo-btn {
-            font-family: 'Noto Naskh Arabic', serif;
-        }
-
         .change-photo-btn:hover {
             border-color: var(--error-red);
             color: var(--error-red);
@@ -481,10 +435,6 @@
             border-radius: 6px;
             font-family: 'Cairo', sans-serif;
             box-sizing: border-box;
-        }
-
-        html.lang-ckb .form-group input:not([type="checkbox"]) {
-            font-family: 'Noto Naskh Arabic', serif;
         }
 
         .agreement-section {
@@ -527,10 +477,6 @@
             transition: 0.3s;
         }
 
-        html.lang-ckb .submit-btn {
-            font-family: 'Noto Naskh Arabic', serif;
-        }
-
         .submit-btn:hover {
             background-color: var(--primary-gold);
             color: var(--primary-navy);
@@ -562,20 +508,11 @@
         <button class="lang-btn active" onclick="setLang('ar')" id="btn-ar">
             العربية
         </button>
-        <button class="lang-btn" onclick="setLang('fa')" id="btn-fa">
-            فارسی
-        </button>
         <button class="lang-btn" onclick="setLang('tr')" id="btn-tr">
             Türkçe
         </button>
         <button class="lang-btn" onclick="setLang('en')" id="btn-en">
             English
-        </button>
-        <button class="lang-btn" onclick="setLang('ku')" id="btn-ku">
-            Kurmancî
-        </button>
-        <button class="lang-btn" onclick="setLang('ckb')" id="btn-ckb">
-            سۆرانی
         </button>
     </div>
 
@@ -791,44 +728,6 @@ const translations = {
         c11t: "الالتزام بالموعد", c11d: "لا تُقبل المشاركات بعد انتهاء مدة الاستقبال الرسمية",
         c12t: "قرار الحكام", c12d: "يتم إعلان الفائزيين عبر صفحتنا على الإنسغرام",
     },
-    fa: {
-        dir: "rtl",
-        lang: "fa",
-        langLabel: "زبان:",
-        headerWord1: "مسابقه",
-        headerWord2: "شرق در تصویر",
-        conditionsTitle: "شرایط شرکت",
-        prizesTitle: "جوایز و پاداش‌ها",
-        rank1: "مقام اول",
-        rank2: "مقام دوم",
-        rank3: "مقام سوم",
-        rankVal: "به زودی",
-        rankVal2: "به زودی",
-        rankVal3: "به زودی",
-        formTitle: "فرم ثبت‌نام",
-        labelName: "نام و نام خانوادگی",
-        labelPhone: "شماره تماس (واتساپ)",
-        labelInsta: "حساب اینستاگرام",
-        labelPhoto: "پیوست کردن تصویر شرکتی",
-        uploadText: "اینجا کلیک کنید یا تصویر را بکشید",
-        uploadSuccess: "تصویر با موفقیت بارگذاری شد!",
-        changePhoto: "تغییر تصویر",
-        infoBanner: 'این مسابقه از تاریخ <strong>05/05</strong> آغاز می‌شود و تا <strong>10/05</strong> ادامه دارد. تمامی تصاویر جمع‌آوری شده و در اختیار داوران قرار می‌گیرند تا <strong>۳ تصویر</strong> برتر انتخاب شوند، سپس با صاحبان تصاویر برنده تماس گرفته و جوایز اهدا می‌شود.',
-        agreement: "با تمام شرایط ذکر شده موافقم و تعهد می‌دهم که اطلاعات ارائه شده و مالکیت تصویر صحیح است، و هیچ وسیله جعل یا پالایش فنی در تولید این اثر استفاده نشده، و تصویر در هیچ مسابقه دیگری شرکت نکرده است.",
-        submitBtn: "ارسال درخواست شرکت",
-        c1t: "ارتباط با هویت", c1d: "میراث، جزئیات یا طبیعتی از خاورمیانه",
-        c2t: "اصالت", c2d: "عکاسی شخصی، بدون اینترنت یا هوش مصنوعی",
-        c3t: "پیام فرهنگی", c3d: "برجسته کردن جنبه‌های زیبایی‌شناختی و تاریخی شرق",
-        c4t: "ویرایش‌های مجاز", c4d: "فقط نور و کنتراست، دستکاری اساسی ممنوع است",
-        c5t: "حقوق مالکیت", c5d: "شرکت‌کننده مالک است و حق نمایش را به اتحادیه اعطا می‌کند",
-        c6t: "فقط یک تصویر", c6d: "بیش از یک تصویر برای هر شرکت‌کننده پذیرفته نمی‌شود",
-        c7t: "کیفیت تصویر", c7d: "حداقل ۱۲ مگاپیکسل، فرمت JPG یا PNG",
-        c8t: "بدون واترمارک", c8d: "قرار دادن هرگونه لوگو یا نوشته روی تصویر ممنوع است",
-        c9t: "انحصاری بودن", c9d: "استفاده از تصاویری که قبلاً جایزه گرفته یا به صورت تجاری استفاده شده ممنوع است",
-        c10t: "مناسب بودن محتوا", c10d: "هرگونه محتوای توهین‌آمیز یا مخالف اخلاق عمومی ممنوع است",
-        c11t: "رعایت مهلت", c11d: "مشارکت‌ها پس از پایان مهلت رسمی پذیرفته نمی‌شوند",
-        c12t: "تصمیم داوران", c12d: "برندگان از طریق صفحه اینستاگرام ما اعلام می‌شوند",
-    },
     tr: {
         dir: "ltr",
         lang: "tr",
@@ -904,82 +803,6 @@ const translations = {
         c10t: "Content Appropriateness", c10d: "Any offensive or morally inappropriate content is prohibited",
         c11t: "Deadline Compliance", c11d: "Entries are not accepted after the official submission period ends",
         c12t: "Judges' Decision", c12d: "Winners will be announced through our Instagram page",
-    },
-    ku: {
-        dir: "ltr",
-        lang: "ku",
-        langLabel: "Ziman:",
-        headerWord1: "Pêşbirk",
-        headerWord2: "Rojhilat di Wênek de",
-        conditionsTitle: "Mercên Beşdarbûnê",
-        prizesTitle: "Xelat û Mükafat",
-        rank1: "Cihê Yekem",
-        rank2: "Cihê Duyem",
-        rank3: "Cihê Sêyem",
-        rankVal: "Zû tê",
-        rankVal2: "Zû tê",
-        rankVal3: "Zû tê",
-        formTitle: "Forma Tomarkirinê",
-        labelName: "Nav û Paşnav",
-        labelPhone: "Hejmara Têkiliyê (WhatsApp)",
-        labelInsta: "Hesabê Instagram",
-        labelPhoto: "Wêneyê Beşdarbûnê Pêveke",
-        uploadText: "Vir bikirtînin an wêneyê bikişînin",
-        uploadSuccess: "Wêne bi serketî hate barkirin!",
-        changePhoto: "Wêneyê Biguherîne",
-        infoBanner: 'Ev pêşbirk di <strong>05/05</strong> de dest pê dike û di <strong>10/05</strong> de diqede. Hemû wêneyên beşdar dê li cem dadgeran werin pêşkêşkirin û <strong>3 wêneyên</strong> çêtirîn dê bêne hilbijartin. Paşê dê bi xwediyên wêneyên birêz re têkilî were girtin û xelat werin dayîn.',
-        agreement: "Ez bi hemû mercên li jor razî me û peyman didim ku agahiyên pêşkêşkirî û xwedîtiya wêneyê rast in, ez di hilberîna vê xebatê de ti amûrên sêwîtî an teknîkî bikar neanîme, û ev wêne di ti pêşbirkeke din de nehatiye şandin.",
-        submitBtn: "Daxwaza Beşdarbûnê Bişîne",
-        c1t: "Girêdana Nasnameyê", c1d: "Mîras, hûrgulî an xwezayek ji Rojhilata Navîn",
-        c2t: "Eslîtî", c2d: "Wêneya kesane, bê internet an AI",
-        c3t: "Peyama Çandî", c3d: "Xuyakirina aliyên estetîk û dîrokî yên Rojhilatê",
-        c4t: "Guhertinên Destûrdar", c4d: "Tenê ronahî û kontrast; destkariya radîkal qedexe ye",
-        c5t: "Mafên Xwedîtiyê", c5d: "Beşdar xwedî ye û mafê pêşandanê dide yekîtiyê",
-        c6t: "Tenê Yek Wêne", c6d: "Ji her beşdar zêdetir ji yek wêneyê nayê qebûlkirin",
-        c7t: "Kalîteya Wêneyê", c7d: "Herî kêm 12 megapîksel, formata JPG an PNG",
-        c8t: "Bê Nîşanên Av", c8d: "Danîna logo an nivîsek li ser wêneyê qedexe ye",
-        c9t: "Taybetkari", c9d: "Wêneyên ku berê xelat wergirtine an ji bo bazirganî hatine bikaranîn qedexe ne",
-        c10t: "Guncanbûna Naveroka", c10d: "Her naveroka sûcdar an berovajî exlaqê giştî qedexe ye",
-        c11t: "Girtina Dawiyê", c11d: "Piştî bitemanbûna qonaxa fermî ya qebûlkirinê beşdarî nayê qebûlkirin",
-        c12t: "Biryara Dadgeran", c12d: "Desteser dê bi rêya rûpela me ya Instagram werin ragihandin",
-    },
-    ckb: {
-        dir: "rtl",
-        lang: "ckb",
-        langLabel: "زمان:",
-        headerWord1: "پێشبڕکێ",
-        headerWord2: "ڕۆژهەڵات لە وێنەیەکدا",
-        conditionsTitle: "مەرجەکانی بەشداربوون",
-        prizesTitle: "خەڵات و پاداشتەکان",
-        rank1: "شوێنی یەکەم",
-        rank2: "شوێنی دووەم",
-        rank3: "شوێنی سێیەم",
-        rankVal: "بەم زووانە",
-        rankVal2: "بەم زووانە",
-        rankVal3: "بەم زووانە",
-        formTitle: "فۆرمی تۆمارکردن",
-        labelName: "ناو و ناوی باوک",
-        labelPhone: "ژمارەی پەیوەندی (WhatsApp)",
-        labelInsta: "ئەکاونتی Instagram",
-        labelPhoto: "وێنەی بەشداربوون پێوەبکە",
-        uploadText: "لێرە کلیک بکە یان وێنەکە بێنە ئێرە",
-        uploadSuccess: "وێنەکە بە سەرکەوتوویی بارکرا!",
-        changePhoto: "وێنەکە بگۆڕە",
-        infoBanner: 'ئەم پێشبڕکێیە لە <strong>05/05</strong> دەستی پێدەکات و لە <strong>10/05</strong> کۆتایی پێدێت. هەموو وێنە بەشداربووەکان کۆدەکرێنەوە و پێشکەش بە داوەرەکان دەکرێن و باشترین <strong>٣ وێنە</strong> هەڵدەبژێردرێن، پاشان پەیوەندی بە خاوەنەکانی وێنە براوەکان دەکرێت و خەڵاتەکان دەدرێن.',
-        agreement: "رازیم بە هەموو مەرجەکانی سەرەوە، و پەیمان دەبەستم کە زانیاری پێشکەشکراو و خاوەنداری وێنەکە ڕاستە، و هیچ ئامێرێکی دروستکاری یان تەکنیکی بەکارنەهێناوم لە بەرهەمهێنانی ئەم کارەدا، و ئەم وێنەیەش لە هیچ پێشبڕکێیەکی دیکەدا بەشداری نەکردووە.",
-        submitBtn: "داواکاری بەشداربوون بنێرە",
-        c1t: "پەیوەندی بە ناسنامەوە", c1d: "میراس، وردەکاری یان سروشتێک لە ڕۆژهەڵاتی ناوین",
-        c2t: "ئەسڵییەت", c2d: "وێنەگرتنی کەسی، بێ ئینتەرنێت یان AI",
-        c3t: "پەیامی کولتووری", c3d: "خستنەرووی لایەنە جوانایەتی و مێژووییەکانی ڕۆژهەڵات",
-        c4t: "دەستکارییە ڕێگەپێدراوەکان", c4d: "تەنها ڕووناکی و کۆنتراست؛ دەستکاری بنەڕەتی قەدەغەیە",
-        c5t: "مافی خاوەندارێتی", c5d: "بەشدار خاوەنی وێنەکەیە و مافی پیشاندانیشی دەبەخشێت بە یەکێتییەکە",
-        c6t: "تەنها یەک وێنە", c6d: "زیاتر لە یەک وێنە بۆ هەر بەشدارێک وەرناگیردرێت",
-        c7t: "کوالیتی وێنەکە", c7d: "لانیکەم ١٢ مێگاپیکسل، فۆرماتی JPG یان PNG",
-        c8t: "بێ نیشانەی ئاو", c8d: "دانانی هیچ لۆگۆ یان نووسینێک سەر وێنەکە قەدەغەیە",
-        c9t: "تایبەتمەندی", c9d: "وێنەکانی کە پێشتر خەڵات وەرگرتوون یان بۆ بازرگانی بەکارهێندراون قەدەغەن",
-        c10t: "گونجاوی ناوەڕۆک", c10d: "هەر ناوەڕۆکێکی کەینووس یان دژی ئەخلاقی گشتی قەدەغەیە",
-        c11t: "پابەندی بە کاتەکە", c11d: "پاش کۆتایی خاوی فەرمی وەرگرتن، بەشداری وەرناگیردرێت",
-        c12t: "بڕیاری داوەرەکان", c12d: "براوەکان لە ڕێگەی پەڕەی Instagram ماندا ئاگادار دەکرێنەوە",
     }
 };
 
@@ -990,14 +813,8 @@ function setLang(code) {
     html.setAttribute('lang', t.lang);
     html.setAttribute('dir', t.dir);
 
-    // Remove all lang classes then add current one
-    ['ar','fa','tr','en','ku','ckb'].forEach(l => {
-        html.classList.remove('lang-' + l);
-    });
-    html.classList.add('lang-' + code);
-
     // Active button
-    ['ar','fa','tr','en','ku','ckb'].forEach(l => {
+    ['ar','tr','en'].forEach(l => {
         document.getElementById('btn-' + l).classList.toggle('active', l === code);
     });
 
@@ -1008,7 +825,7 @@ function setLang(code) {
     document.getElementById('headerWord1').textContent = t.headerWord1;
     document.getElementById('headerWord2').textContent = t.headerWord2;
 
-    // All data-key elements (except infoBanner span which uses innerHTML)
+    // All data-key elements
     document.querySelectorAll('[data-key]').forEach(el => {
         const key = el.getAttribute('data-key');
         if (key === 'infoBanner') {
@@ -1018,7 +835,7 @@ function setLang(code) {
         }
     });
 
-    // Prizes grid direction for all langs
+    // Prizes grid direction
     document.querySelector('.prizes-grid').style.direction = t.dir;
 }
 </script>
