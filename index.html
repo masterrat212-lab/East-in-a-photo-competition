@@ -630,8 +630,8 @@
 
         <h2 class="section-title" data-key="formTitle">استمارة التسجيل</h2>
 
-        <form action="https://formsubmit.co/meysarasalem@gmail.com" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="_subject" value="مشاركة جديدة: الشرق في صورة">
+        <form id="entryForm">
+            <!-- يُرسل عبر fetch إلى Google Apps Script -->
 
             <div class="form-group">
                 <label for="fullName" data-key="labelName">الاسم الثلاثي</label>
@@ -683,8 +683,17 @@
                 </label>
             </div>
 
-            <button type="submit" class="submit-btn" data-key="submitBtn">إرسال طلب المشاركة</button>
+            <button type="submit" class="submit-btn" id="submitBtn" data-key="submitBtn">إرسال طلب المشاركة</button>
         </form>
+
+        <!-- ======= Sending Overlay ======= -->
+        <div id="sendingOverlay" style="display:none; position:fixed; inset:0; background:rgba(26,39,73,0.7); z-index:9999; align-items:center; justify-content:center; flex-direction:column; gap:18px;">
+            <div style="background:#fff; border-radius:16px; padding:40px 50px; text-align:center; box-shadow:0 8px 32px rgba(0,0,0,0.2); max-width:340px; width:90%;">
+                <div id="overlayIcon" style="font-size:3rem; margin-bottom:12px;">⏳</div>
+                <div id="overlayTitle" style="font-size:1.2rem; font-weight:700; color:#1a2749; margin-bottom:6px;" data-key-overlay="sending">جارٍ الإرسال...</div>
+                <div id="overlaySubtitle" style="font-size:0.85rem; color:#888;" data-key-overlay="sendingDesc">يتم رفع صورتك إلى Drive، يرجى الانتظار</div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -878,6 +887,99 @@ function resetUpload() {
         fileInput.value = '';
     }, 350);
 }
+</script>
+
+<script>
+// ======= Google Apps Script Endpoint =======
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwaUsTcvEBlvwRVG0Ck995pl2XGs1x6WQR6MGywbd0OJyt9pU72ZZZuB-65bpl8gGjudQ/exec';
+
+const overlayTexts = {
+    ar: { sending: 'جارٍ الإرسال...', sendingDesc: 'يتم رفع صورتك إلى Drive، يرجى الانتظار', success: '✅', successTitle: 'تم الإرسال بنجاح!', successDesc: 'شكراً لمشاركتك، سيتم التواصل معك قريباً', error: '❌', errorTitle: 'حدث خطأ!', errorDesc: 'يرجى المحاولة مرة أخرى' },
+    tr: { sending: 'Gönderiliyor...', sendingDesc: 'Fotoğrafınız Drive\'a yükleniyor, lütfen bekleyin', success: '✅', successTitle: 'Başarıyla Gönderildi!', successDesc: 'Katılımınız için teşekkürler, yakında sizinle iletişime geçilecektir', error: '❌', errorTitle: 'Bir Hata Oluştu!', errorDesc: 'Lütfen tekrar deneyin' },
+    en: { sending: 'Sending...', sendingDesc: 'Your photo is being uploaded to Drive, please wait', success: '✅', successTitle: 'Sent Successfully!', successDesc: 'Thank you for participating, we will contact you soon', error: '❌', errorTitle: 'An Error Occurred!', errorDesc: 'Please try again' }
+};
+
+let currentLang = 'ar';
+const _origSetLang = setLang;
+// Wrap setLang to track current language
+window.setLang = function(code) {
+    currentLang = code;
+    _origSetLang(code);
+};
+
+function showOverlay(state) {
+    const overlay = document.getElementById('sendingOverlay');
+    const icon    = document.getElementById('overlayIcon');
+    const title   = document.getElementById('overlayTitle');
+    const sub     = document.getElementById('overlaySubtitle');
+    const t       = overlayTexts[currentLang] || overlayTexts.ar;
+
+    if (state === 'sending') {
+        icon.textContent  = '⏳';
+        title.textContent = t.sending;
+        sub.textContent   = t.sendingDesc;
+        overlay.style.display = 'flex';
+    } else if (state === 'success') {
+        icon.textContent  = t.success;
+        title.textContent = t.successTitle;
+        sub.textContent   = t.successDesc;
+        setTimeout(() => { overlay.style.display = 'none'; }, 3500);
+    } else if (state === 'error') {
+        icon.textContent  = t.error;
+        title.textContent = t.errorTitle;
+        sub.textContent   = t.errorDesc;
+        setTimeout(() => { overlay.style.display = 'none'; }, 3500);
+    }
+}
+
+document.getElementById('entryForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const fileInput = document.getElementById('photo');
+    if (!fileInput.files[0]) return;
+
+    showOverlay('sending');
+
+    const file = fileInput.files[0];
+
+    // Convert image to base64
+    const base64 = await new Promise((res, rej) => {
+        const reader = new FileReader();
+        reader.onload  = () => res(reader.result.split(',')[1]);
+        reader.onerror = () => rej(new Error('FileReader error'));
+        reader.readAsDataURL(file);
+    });
+
+    const payload = {
+        fullName:  document.getElementById('fullName').value,
+        phone:     document.getElementById('phone').value,
+        instagram: document.getElementById('instagram').value,
+        photo: {
+            name: file.name,
+            type: file.type,
+            data: base64
+        }
+    };
+
+    try {
+        const resp = await fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            body:   JSON.stringify(payload)
+        });
+        const result = await resp.json();
+
+        if (result.status === 'ok') {
+            showOverlay('success');
+            document.getElementById('entryForm').reset();
+            resetUpload();
+        } else {
+            showOverlay('error');
+        }
+    } catch (err) {
+        showOverlay('error');
+        console.error(err);
+    }
+});
 </script>
 
 </body>
