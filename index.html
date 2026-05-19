@@ -962,19 +962,17 @@ document.getElementById('entryForm').addEventListener('submit', async function(e
     };
 
     try {
-        const resp = await fetch(APPS_SCRIPT_URL, {
-            method: 'POST',
-            body:   JSON.stringify(payload)
+        // no-cors يتجاوز قيود CORS — لا يمكن قراءة الرد لكن الطلب يصل
+        await fetch(APPS_SCRIPT_URL, {
+            method:  'POST',
+            mode:    'no-cors',
+            headers: { 'Content-Type': 'text/plain' },
+            body:    JSON.stringify(payload)
         });
-        const result = await resp.json();
-
-        if (result.status === 'ok') {
-            showOverlay('success');
-            document.getElementById('entryForm').reset();
-            resetUpload();
-        } else {
-            showOverlay('error');
-        }
+        // مع no-cors نفترض النجاح إذا لم يحدث exception
+        showOverlay('success');
+        document.getElementById('entryForm').reset();
+        resetUpload();
     } catch (err) {
         showOverlay('error');
         console.error(err);
